@@ -1,80 +1,86 @@
-
 #include <stdio.h>
-#define MESES_MAX 12
-#define MESES_MIN 1
-#define DIA_MAX 31
-#define DIA_MIN 1
+#include <stdlib.h>
+#include <time.h>
+#define TAM 100
+#define Cero 0
+#define inicio 1
+#define num_min 10
+#define dif 31
 
-
-int main(void)
+void ingresar_valores(int vector[]);
+int encontrarMAX(int vector[]);
+int encontrarMIN(int vector[]);
+void posiciones_max(int vector[], int max);
+int main()
 {
-	do {
+    int max, min;
+    printf("Bienvenido a Analizador de Números Aleatorios\n");
+    int vector [TAM];
+    srand(time(NULL));
+    ingresar_valores(vector);
+    max=encontrarMAX(vector);
+    min=encontrarMIN(vector);
+    printf("El número más grande de los escritos anteriormente es: %d\n", max);
+    posiciones_max (vector,max);
+    printf("El número más chico de los escritos anteriormente es: %d\n", min);
+    return Cero;
+}
 
-		int Repet;
-		int anioAc,diaAc,mesAc;
-		int anioNac, diaNac, mesNac;
-		int edad;
-	
-		printf ("Escribe el año actual\n");
-		scanf ("%d", & anioAc);
-		do
-		{
-			printf("Escribe el mes actual numericamente\n");
-			scanf("%d", &mesAc);
-			if (mesAc < MESES_MIN || mesAc > MESES_MAX)
-			{
-				printf("Mes invalido. Por favor, escribe un mes valido (1-12).\n");
-			}
-		} while (mesAc < MESES_MIN || mesAc > MESES_MAX);
-		do
-		{
-			printf ("Escribe tu año de nacimiento\n");
-			scanf ("%d", & anioNac);
-			if (anioNac>anioAc)
-			{
-				printf ("AC1o invalido. El año de su nacimiento no puede ser mayor al aC1o actual.\n");
-			}
-		} while (anioNac>anioAc);
-		do
-		{
-			printf("Escribe tu mes de nacimiento numéricamente\n");
-			scanf("%d", &mesNac);
-			if (mesNac < MESES_MIN || mesNac > MESES_MAX)
-			{
-				printf("Mes invalido. Por favor, escribe un mes válido (1-12).\n");
-			}
-		} while (mesNac<MESES_MIN || mesNac > MESES_MAX);
-		if (mesAc==mesNac)
-		{
-			do
-			{
-				printf ("Escribe el día actual\n");
-				scanf ("%d", & diaAc);
-				if (diaAc<DIA_MIN|| diaAc>DIA_MAX)
-				{
-					printf("Día inválido.Por favor, escribe un día válido (1-31).\n");
-				}
-			} while (diaAc<DIA_MIN|| diaAc>DIA_MAX);
-			do
-			{
-				printf("Escribe tu día de nacimiento:\n");
-				scanf("%d", &diaNac);
-				if(diaNac < DIA_MIN || diaNac > DIA_MAX)
-				{
-					printf("Día invalido. Por favor, escribe un día valido (1-31).\n");
 
-				}
-			} while (diaNac < DIA_MIN || diaNac > DIA_MAX);
-		}
-		edad = anioAc - anioNac;
-		if ((mesAc<mesNac)||(mesAc==mesNac && diaAc<diaNac))
-		{
-			edad--;
-		}
-		printf("Tu edad es: %d\n",edad);
-		printf("Quieres repetir el prgrama? 1 para si, 0 para no.\n");
-		scanf("%d", &Repet);
-	} while  (Repet == '1');
-	printf("Programa finalizado.\n");
-	return 0;
+
+
+
+void ingresar_valores(int vector[])
+{
+    for (int i=Cero;i<TAM;i++)
+    {
+        vector[i] = (rand() % dif) + num_min;
+    }
+    printf ("Valores generados\n");
+    for (int i=Cero;i<TAM;i++)
+    {
+         printf("%2d ", vector[i]); // %2d nos indica el ancho, para que quede prolijo
+        if ((i + inicio) % num_min == Cero)   
+        {
+            printf("\n");
+        }
+    }
+     printf("======================================================================================================================\n");
+}
+int encontrarMAX(int vector[])
+{
+    int max;
+    max=vector[Cero];
+    for (int i=inicio;i<TAM;i++)
+    {
+        if (max<vector[i])
+        {
+            max=vector[i];
+        }
+    }
+    return max;
+}
+int encontrarMIN(int vector[])
+{
+    int min;
+    min=vector[Cero];
+    for (int i=inicio;i<TAM;i++)
+    {
+        if (min>vector[i])
+        {
+            min=vector[i];
+        }
+    }
+    return min;
+}
+void posiciones_max(int vector[], int max)
+{
+    printf ("El número mayor se encuentra en las siguientees posiciones dentro del vector:\n");
+    for (int i=Cero;i<TAM;i++ )
+    {
+        if (vector[i]==max)
+        {
+            printf ("%d\n",i);
+        }
+    }
 }
