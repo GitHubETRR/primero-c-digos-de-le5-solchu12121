@@ -6,7 +6,7 @@
 #define inicio 10
 #define Cero 0
 #define dif 11
-#define camb 10
+#define valormin 10
 void posiciones_max(int vector[],int max);
 int encontrarMAX(int vector []);
     
@@ -19,7 +19,7 @@ int main() {
 
     //vector, valores aleatorios entre 10 y 20 
     for (i = Cero; i < TAMANO_VEC; i++) {
-        vector[i] = rand() % (dif + camb); // (20 - 10 + 1) = 11
+        vector[i] = rand() % dif + valormin; // dif= (valormax(20) - valormin(10) + 1) = 11
     }
 
     printf("Vector: ");
